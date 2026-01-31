@@ -72,17 +72,18 @@ async function handleRegister(e) {
             body: JSON.stringify({ name, email, password })
         });
 
-        const data = await res.json();
+        const data = await res.json().catch(() => null);
 
-        if (res.ok) {
+        if (res.ok && data) {
             showAlert('Registration successful! Please sign in.', 'success');
             setTimeout(() => toggleAuth('login'), 2000);
             document.getElementById('register-form').reset();
         } else {
-            showAlert(data.error || data.message || 'Registration failed');
+            const errMsg = data ? (data.error || data.message) : `Server Error (${res.status})`;
+            showAlert(errMsg || 'Registration failed');
         }
     } catch (err) {
-        showAlert('An error occurred. Check your Vercel logs/connection.');
+        showAlert(`Network Error: ${err.message}`);
         console.error(err);
     }
 }
@@ -99,15 +100,16 @@ async function handleLogin(e) {
             body: JSON.stringify({ email, password })
         });
 
-        const data = await res.json();
+        const data = await res.json().catch(() => null);
 
-        if (res.ok) {
+        if (res.ok && data) {
             window.location.href = '/portfolio.html';
         } else {
-            showAlert(data.error || data.message || 'Login failed');
+            const errMsg = data ? (data.error || data.message) : `Server Error (${res.status})`;
+            showAlert(errMsg || 'Login failed');
         }
     } catch (err) {
-        showAlert('An error occurred. Check your Vercel logs/connection.');
+        showAlert(`Network Error: ${err.message}`);
         console.error(err);
     }
 }
