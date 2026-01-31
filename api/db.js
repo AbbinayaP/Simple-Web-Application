@@ -3,28 +3,29 @@ const mongoose = require('mongoose');
 let cachedMs = null;
 
 async function connectToDatabase() {
-  if (cachedMs) {
-    return cachedMs;
-  }
+    if (cachedMs) {
+        return cachedMs;
+    }
 
-  const MONGODB_URI = process.env.MONGODB_URI;
+    const MONGODB_URI = process.env.MONGODB_URI;
 
-  if (!MONGODB_URI) {
-    throw new Error('Please define the MONGODB_URI environment variable');
-  }
+    if (!MONGODB_URI) {
+        throw new Error('Please define the MONGODB_URI environment variable');
+    }
 
-  const opts = {
-    bufferCommands: false,
-  };
+    const opts = {
+        bufferCommands: false,
+        serverSelectionTimeoutMS: 5000, // 5 seconds timeout
+    };
 
-  try {
-      const db = await mongoose.connect(MONGODB_URI, opts);
-      cachedMs = db;
-      return db;
-  } catch (error) {
-      console.error("MongoDB connection error:", error);
-      throw error;
-  }
+    try {
+        const db = await mongoose.connect(MONGODB_URI, opts);
+        cachedMs = db;
+        return db;
+    } catch (error) {
+        console.error("MongoDB connection error:", error);
+        throw error;
+    }
 }
 
 module.exports = connectToDatabase;
