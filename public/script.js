@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Determine which page we are on
-    const isPortfolioPage = window.location.pathname.includes('portfolio.html');
+    const path = window.location.pathname;
+    const isPortfolioPage = path.includes('portfolio.html') || path === '/portfolio';
 
     if (isPortfolioPage) {
         initPortfolio();
