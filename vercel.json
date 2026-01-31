@@ -22,6 +22,10 @@
         {
             "source": "/",
             "destination": "/public/index.html"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/public/$1"
         }
     ]
 }
