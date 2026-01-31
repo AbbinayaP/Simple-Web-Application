@@ -1,0 +1,18 @@
+{
+  "name": "twenty20-assessment",
+  "version": "1.0.0",
+  "description": "Simple responsive web app for Twenty20 Systems assessment",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "mongoose": "^8.0.3",
+    "jsonwebtoken": "^9.0.2",
+    "cookie": "^0.6.0"
+  },
+  "devDependencies": {
+     "vercel": "^32.6.1"
+  }
+}
