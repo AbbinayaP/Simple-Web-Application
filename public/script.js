@@ -79,10 +79,10 @@ async function handleRegister(e) {
             setTimeout(() => toggleAuth('login'), 2000);
             document.getElementById('register-form').reset();
         } else {
-            showAlert(data.message || 'Registration failed');
+            showAlert(data.error || data.message || 'Registration failed');
         }
     } catch (err) {
-        showAlert('An error occurred. Please try again.');
+        showAlert('An error occurred. Check your Vercel logs/connection.');
         console.error(err);
     }
 }
@@ -104,10 +104,10 @@ async function handleLogin(e) {
         if (res.ok) {
             window.location.href = '/portfolio.html';
         } else {
-            showAlert(data.message || 'Login failed');
+            showAlert(data.error || data.message || 'Login failed');
         }
     } catch (err) {
-        showAlert('An error occurred. Please try again.');
+        showAlert('An error occurred. Check your Vercel logs/connection.');
         console.error(err);
     }
 }
